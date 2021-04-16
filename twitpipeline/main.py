@@ -1,11 +1,13 @@
 """
 Main script
 """
-
-from twitpipeline.datasource.listener import Listener, TweetListener
-from twitpipeline.mq.publisher import Publisher, GooglePubsub
+from twitpipeline.mq.googlepubsub import create_google_pubsub_publisher
+from twitpipeline.twit.listener import TweetStreamListener
+from twitpipeline.mq.publisher import Publisher
 
 __version__ = "1.0.0"
+
+from twitpipeline.twit.stream import create_twit_stream
 
 
 def main():
@@ -13,14 +15,17 @@ def main():
     Main script
     """
 
-    # Google PUBSUB 으로 데이터를 전송하는 객체
-    publisher: Publisher = GooglePubsub()
+    # Google pubsub publisher 생성.
+    publisher: Publisher = create_google_pubsub_publisher()
 
-    # Twit 데이터를 불러오는 객체. 데이터를 불러온 뒤 바로 publiser 를 이용해 PUBSUB 으로 데이터를 전송함.
-    listener: Listener = TweetListener(publisher)
+    # Twitter stream listener 정의.
+    twit_stream_listener = TweetStreamListener(publisher)
 
-    # 'game' 라는 단어가 포함된 트윗을 블러옴
-    listener.listen(track=['game'])
+    # Twit stream 생성
+    twit_stream = create_twit_stream(twit_stream_listener)
+
+    # 스트리밍 시작
+    twit_stream.filter(track=['game'])
 
 
 if __name__ == "__main__":
