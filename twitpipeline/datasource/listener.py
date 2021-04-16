@@ -19,7 +19,7 @@ class Listener(metaclass=ABCMeta):
     Data source listener interface
     """
     @abstractmethod
-    def listen(self) -> None:
+    def listen(self, track: list[str]) -> None:
         """
         Start listening
         """
@@ -32,7 +32,7 @@ class TweetListener(Listener):
     def __init__(self, publisher: Publisher):
         self._stream_listener: StreamListener = TweetStreamListener(publisher=publisher)
 
-    def listen(self) -> None:
+    def listen(self, track: list[str]) -> None:
         """
         Twitter API 를 통해 데이터를 스트리밍하는 메소드
         """
