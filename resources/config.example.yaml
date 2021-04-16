@@ -1,0 +1,9 @@
+twit:
+  api_key: "API_KEY"
+  api_secret_key: "API_SECRET_KEY"
+  access_token: "ACCESS_TOKEN"
+  access_token_secret: "ACCESS_TOKEN_SECRET"
+
+google:
+  credential-file-name: 'YOUR_GOOGLE_CREDENTIAL_JSON_FILE_NAME'
+  pubsub_topic: 'YOUR_PUBSUB_TOPIC'
