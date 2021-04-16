@@ -1,4 +1,3 @@
-twitpipeline/config.py
 resources/google-credential.json
 resources/config.yaml
 .mypy_cache
