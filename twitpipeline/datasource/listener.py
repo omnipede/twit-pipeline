@@ -36,11 +36,17 @@ class TweetListener(Listener):
         """
         Twitter API 를 통해 데이터를 스트리밍하는 메소드
         """
+        twitter_stream = self.__open_twit_stream()
+        twitter_stream.filter(track=['game'])
+
+    def __open_twit_stream(self) -> tweepy.Stream:
+        """
+        Open twit data stream with Twitter OAuth license
+        """
         stream_listener: StreamListener = self._stream_listener
         tweet_auth = tweepy.OAuthHandler(twit_api_key, twit_api_secret_key)
         tweet_auth.set_access_token(twit_access_token, twit_access_token_secret)
-        twitter_stream = tweepy.Stream(tweet_auth, stream_listener)
-        twitter_stream.filter(track=['game'])
+        return tweepy.Stream(tweet_auth, stream_listener)
 
 
 class TweetStreamListener(StreamListener):
